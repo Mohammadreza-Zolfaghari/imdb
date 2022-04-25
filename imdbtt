@@ -1,0 +1,17 @@
+import imdb
+import pandas as pd
+moviesDB=imdb.IMDb()
+movies=pd.read_csv('csvmovie.csv')
+movies
+movies['ID']='tt'
+for movie in movies['Movies']:
+    s_movies=moviesDB.search_movie(movie)  
+    try:
+        asli_movie=s_movies[0]
+    except:
+            pass
+    title=asli_movie['title']
+    ID=asli_movie.getID()
+    movies.loc[movies.Movies==movie,'ID']='tt'+ID
+movies
+movies.to_csv('withID.csv')
